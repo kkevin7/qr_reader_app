@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _scanQR() async {
+  _scanQR() async {
     String futureString = '';
     try {
       futureString = await new QRCodeReader().scan();
