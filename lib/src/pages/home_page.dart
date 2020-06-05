@@ -8,14 +8,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('QR Scanner'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.delete_forever),
+            onPressed: (){},
+          )
+        ],
+      ),
       body: _callPage(_currentIndex),
       bottomNavigationBar: _crearBottonNavigationBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.filter_center_focus),
+        onPressed: (){},
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
     );
   }
 
