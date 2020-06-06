@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_reader_app/src/bloc/scans_bloc.dart';
 import 'package:qr_reader_app/src/models/scan_model.dart';
 
+import 'package:qr_reader_app/src/utils/utils.dart' as utils;
+
 class MapasPage extends StatelessWidget {
 
   final scansBloc = new ScansBloc();
@@ -42,6 +44,9 @@ class MapasPage extends StatelessWidget {
                 Icons.keyboard_arrow_right,
                 color: Colors.grey,
               ),
+              onTap: () {
+                utils.abrirScan(scans[i]);
+              },
             ),
           ),
         );

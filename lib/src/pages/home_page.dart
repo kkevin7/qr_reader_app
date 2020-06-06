@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qr_reader_app/src/bloc/scans_bloc.dart';
 import 'package:qr_reader_app/src/models/scan_model.dart';
 
 import 'package:qr_reader_app/src/pages/direcciones_page.dart';
 import 'package:qr_reader_app/src/pages/mapas_page.dart';
+
+import 'package:qr_reader_app/src/utils/utils.dart' as utils;
 
 import 'package:qrscan/qrscan.dart' as scanner;
 
@@ -73,17 +77,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR() async {
-    String cameraScanResult = 'Ahh perro traes el omnitrix';
-    // try {
-    //   futureString = await scanner.scan();
-    // } catch (e) {
-    //   futureString = e.toString();
-    // }
-    // print('futureString $futureString');
+    String cameraScanResult = 'https://iglesiaelimsantaana.netlify.com/';
     
     if(cameraScanResult != null){
       final scan = ScanModel(valor: cameraScanResult);
       scansBloc.agregarScan(scan);
+
+      final scan2 = ScanModel(valor: 'geo:40.724233047051705,-74.007314459101564');
+      scansBloc.agregarScan(scan2);
+
+      if(Platform.isIOS){
+        Future.delayed(Duration(milliseconds: 750), (){
+        utils.abrirScan(scan);
+        });
+      }else{
+        utils.abrirScan(scan);
+      }
+
     }
   }
 }
