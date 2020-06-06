@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_reader_app/src/pages/direcciones_page.dart';
 import 'package:qr_reader_app/src/pages/mapas_page.dart';
 
-import 'package:qrcode_reader/qrcode_reader.dart';
+// import 'package:qrcode_reader/qrcode_reader.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class HomePage extends StatefulWidget {
   @override
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   _scanQR() async {
     String futureString = '';
     try {
-      futureString = await new QRCodeReader().scan();
+      futureString = await scanner.scan();
     } catch (e) {
       futureString = e.toString();
     }
