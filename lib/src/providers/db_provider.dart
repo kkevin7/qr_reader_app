@@ -38,10 +38,9 @@ class DBProvider {
     return res;
   }
 
-  nuevoScan(ScanModel scanModel) async {
+  Future<int> nuevoScan(ScanModel scanModel) async {
     final db = await database;
-    final res = await db.insert('Scans', scanModel.toJson());
-    return res;
+    return await db.insert('Scans', scanModel.toJson());
   }
 
   //SELECT - Obtener información
@@ -70,10 +69,18 @@ class DBProvider {
   //Actualizar Registros
   Future<int> updateScan(ScanModel scanModel) async {
     final db = await database;
-    final res = await db.update('Scans', scanModel.toJson(), where: 'id= ?', whereArgs: [scanModel.id]);
-    return res;
+    return await db.update('Scans', scanModel.toJson(), where: 'id= ?', whereArgs: [scanModel.id]);
   }
 
-  
+  //Eliminar Registros
+  Future<int> deleteScan(int id) async{
+    final db = await database;
+    return await db.delete('Scans', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteAll(int id) async{
+    final db = await database;
+    return await db.rawDelete('DELETE FROM Scans');
+  }
 
 }
