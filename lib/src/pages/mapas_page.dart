@@ -27,7 +27,8 @@ class MapasPage extends StatelessWidget {
             background: Container(
               color: Colors.red,
             ),
-            onDismissed: (direccion) async => await DBProvider.db.deleteScan(scans[i].id),
+            onDismissed: (direccion) async =>
+                await DBProvider.db.deleteScan(scans[i].id),
             child: ListTile(
               leading: Icon(
                 Icons.cloud_queue,

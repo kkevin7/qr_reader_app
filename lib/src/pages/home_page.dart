@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:qr_reader_app/src/pages/direcciones_page.dart';
 import 'package:qr_reader_app/src/pages/mapas_page.dart';
 import 'package:qr_reader_app/src/providers/db_provider.dart';
-//Model
-import 'package:qr_reader_app/src/models/scan_model.dart';
-export 'package:qr_reader_app/src/models/scan_model.dart';
 
 import 'package:qrscan/qrscan.dart' as scanner;
 
