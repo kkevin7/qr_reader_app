@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:qr_reader_app/src/pages/direcciones_page.dart';
 import 'package:qr_reader_app/src/pages/mapas_page.dart';
+import 'package:qr_reader_app/src/providers/db_provider.dart';
+//Model
+import 'package:qr_reader_app/src/models/scan_model.dart';
+export 'package:qr_reader_app/src/models/scan_model.dart';
 
-// import 'package:qrcode_reader/qrcode_reader.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 class HomePage extends StatefulWidget {
@@ -69,15 +73,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR() async {
-    String futureString = '';
-    try {
-      futureString = await scanner.scan();
-    } catch (e) {
-      futureString = e.toString();
-    }
-    print('futureString $futureString');
-    if(futureString != null){
-      print('Tenemos información');
+    String cameraScanResult = 'Ahh perro traes el omnitrix';
+    // try {
+    //   futureString = await scanner.scan();
+    // } catch (e) {
+    //   futureString = e.toString();
+    // }
+    // print('futureString $futureString');
+    
+    if(cameraScanResult != null){
+      final scanModel = ScanModel(valor: cameraScanResult);
+      DBProvider.db.nuevoScan(scanModel);
     }
   }
 }

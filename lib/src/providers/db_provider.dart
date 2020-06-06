@@ -31,7 +31,7 @@ class DBProvider {
   }
 
   //CREAR Registros
-  nuevoScanRow(ScanModel scanModel) async {
+  Future<int> nuevoScanRow(ScanModel scanModel) async {
     final db = await database;
     final res = await db.rawInsert("INSERT INTO Scans(id, tipo, valor) "
         "VALUES (${scanModel.id}, ${scanModel.tipo}, ${scanModel.valor})");
@@ -50,7 +50,7 @@ class DBProvider {
     return res.isNotEmpty ? ScanModel.fromJson(res.first) : null;
   }
 
-  Future<List<ScanModel>> getTdodosScans() async {
+  Future<List<ScanModel>> getTodosScans() async {
     final db = await database;
     final res = await db.query('Scans');
     List<ScanModel> list =
@@ -69,18 +69,18 @@ class DBProvider {
   //Actualizar Registros
   Future<int> updateScan(ScanModel scanModel) async {
     final db = await database;
-    return await db.update('Scans', scanModel.toJson(), where: 'id= ?', whereArgs: [scanModel.id]);
+    return await db.update('Scans', scanModel.toJson(),
+        where: 'id= ?', whereArgs: [scanModel.id]);
   }
 
   //Eliminar Registros
-  Future<int> deleteScan(int id) async{
+  Future<int> deleteScan(int id) async {
     final db = await database;
     return await db.delete('Scans', where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<int> deleteAll(int id) async{
+  Future<int> deleteAll(int id) async {
     final db = await database;
     return await db.rawDelete('DELETE FROM Scans');
   }
-
 }
