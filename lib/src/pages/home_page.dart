@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:qr_reader_app/src/bloc/scans_bloc.dart';
+import 'package:qr_reader_app/src/models/scan_model.dart';
 
 import 'package:qr_reader_app/src/pages/direcciones_page.dart';
 import 'package:qr_reader_app/src/pages/mapas_page.dart';
-import 'package:qr_reader_app/src/providers/db_provider.dart';
 
 import 'package:qrscan/qrscan.dart' as scanner;
 
@@ -12,6 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final scansBloc = new ScansBloc();
+
   int _currentIndex = 0;
 
   @override
@@ -22,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
-            onPressed: () {},
+            onPressed: () async => await scansBloc.borrarScanTodos(),
           )
         ],
       ),
@@ -79,8 +82,8 @@ class _HomePageState extends State<HomePage> {
     // print('futureString $futureString');
     
     if(cameraScanResult != null){
-      final scanModel = ScanModel(valor: cameraScanResult);
-      DBProvider.db.nuevoScan(scanModel);
+      final scan = ScanModel(valor: cameraScanResult);
+      scansBloc.agregarScan(scan);
     }
   }
 }
