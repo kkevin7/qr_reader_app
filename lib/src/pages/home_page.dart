@@ -9,8 +9,6 @@ import 'package:qr_reader_app/src/pages/mapas_page.dart';
 
 import 'package:qr_reader_app/src/utils/utils.dart' as utils;
 
-import 'package:qrscan/qrscan.dart' as scanner;
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
