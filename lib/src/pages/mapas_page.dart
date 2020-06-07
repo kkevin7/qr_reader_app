@@ -10,8 +10,11 @@ class MapasPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    scansBloc.obtenerScans();
+    
     return StreamBuilder(
-      stream: scansBloc.scanStream,
+      stream: scansBloc.scansStreamGeo,
       builder: (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot) {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
@@ -35,7 +38,7 @@ class MapasPage extends StatelessWidget {
             onDismissed: (direccion) async => await scansBloc.borrarScan(scans[i].id),
             child: ListTile(
               leading: Icon(
-                Icons.cloud_queue,
+                Icons.location_on,
                 color: Theme.of(context).primaryColor,
               ),
               title: Text(scans[i].valor),
