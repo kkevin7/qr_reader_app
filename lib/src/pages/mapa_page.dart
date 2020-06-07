@@ -14,7 +14,9 @@ class MapaPage extends StatelessWidget {
         title: Text('Coordenadas QR'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: <Widget>[
           IconButton(
@@ -31,15 +33,16 @@ class MapaPage extends StatelessWidget {
     return FlutterMap(
       options: MapOptions(
         center: scan.getLatLng(),
-        zoom: 13.0,
+        zoom: 15.0,
       ),
       layers: [
         _crearMapa(),
+        _crearMarcadores(scan),
       ],
     );
   }
 
-  TileLayerOptions _crearMapa() {
+  _crearMapa() {
     return TileLayerOptions(
       urlTemplate: 'https://api.mapbox.com/styles/v1/'
           '{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
@@ -49,5 +52,21 @@ class MapaPage extends StatelessWidget {
         'id': 'mapbox/streets-v11',
       },
     );
+  }
+
+  _crearMarcadores(ScanModel scan) {
+    return MarkerLayerOptions(markers: <Marker>[
+      Marker(
+          width: 100.0,
+          height: 100.0,
+          point: scan.getLatLng(),
+          builder: (context) => Container(
+                child: Icon(
+                  Icons.location_on,
+                  size: 60.0,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ))
+    ]);
   }
 }
