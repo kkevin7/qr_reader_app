@@ -9,6 +9,7 @@ import 'package:qr_reader_app/src/pages/mapas_page.dart';
 import 'package:qr_reader_app/src/pages/textos_page.dart';
 
 import 'package:qr_reader_app/src/utils/utils.dart' as utils;
+import 'package:qrscan/qrscan.dart' as scanner;
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,7 +25,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Scanner'),
+        title: Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            'QR Scanner',
+            textAlign: TextAlign.center,
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.delete_forever),
@@ -37,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: () =>_scanQR(context),
+        onPressed: () => _scanQR(context),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
@@ -82,23 +89,25 @@ class _HomePageState extends State<HomePage> {
   }
 
   _scanQR(BuildContext context) async {
-    String cameraScanResult = 'https://iglesiaelimsantaana.netlify.com/';
-    
-    if(cameraScanResult != null){
+    String cameraScanResult = '';
+
+    try {
+      cameraScanResult = await scanner.scan();
+    } catch (e) {
+      cameraScanResult = e.toString();
+    }
+
+    if (cameraScanResult != null) {
       final scan = ScanModel(valor: cameraScanResult);
       scansBloc.agregarScan(scan);
 
-      final scan2 = ScanModel(valor: 'geo:40.724233047051705,-74.007314459101564');
-      scansBloc.agregarScan(scan2);
-
-      if(Platform.isIOS){
-        Future.delayed(Duration(milliseconds: 750), (){
-        utils.abrirScan(context, scan);
+      if (Platform.isIOS) {
+        Future.delayed(Duration(milliseconds: 750), () {
+          utils.abrirScan(context, scan);
         });
-      }else{
+      } else {
         utils.abrirScan(context, scan);
       }
-
     }
   }
 }

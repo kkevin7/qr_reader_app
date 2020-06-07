@@ -12,7 +12,7 @@ class ScanModel {
   }) {
     if (this.valor.contains('geo')) {
       this.tipo = 'geo';
-    }else if(this.valor.contains('http') || (this.valor.contains('https')) ){
+    }else if(this.valor.substring(0, 4).contains('http') || (this.valor.substring(0, 5).contains('https')) ){
       this.tipo = 'http';
     }else{
       this.tipo = 'text';

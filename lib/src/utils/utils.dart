@@ -11,7 +11,7 @@ abrirScan(BuildContext context ,ScanModel scan) async {
    } else {
     throw 'Could not launch ${scan.valor}';
    }
-  }else{
+  }else if(scan.tipo == 'geo'){
     Navigator.pushNamed(context, 'mapa', arguments: scan);
   }
 
