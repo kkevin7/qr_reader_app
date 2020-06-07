@@ -45,7 +45,7 @@ class MapasPage extends StatelessWidget {
                 color: Colors.grey,
               ),
               onTap: () {
-                utils.abrirScan(scans[i]);
+                utils.abrirScan(context, scans[i]);
               },
             ),
           ),
