@@ -6,6 +6,7 @@ import 'package:qr_reader_app/src/models/scan_model.dart';
 
 import 'package:qr_reader_app/src/pages/direcciones_page.dart';
 import 'package:qr_reader_app/src/pages/mapas_page.dart';
+import 'package:qr_reader_app/src/pages/textos_page.dart';
 
 import 'package:qr_reader_app/src/utils/utils.dart' as utils;
 
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: _callPage(_currentIndex),
       bottomNavigationBar: _crearBottonNavigationBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
         onPressed: () =>_scanQR(context),
@@ -56,8 +57,12 @@ class _HomePageState extends State<HomePage> {
           title: Text('Mapas'),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.brightness_5),
+          icon: Icon(Icons.near_me),
           title: Text('Direcciones'),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.text_fields),
+          title: Text('Textos'),
         )
       ],
     );
@@ -69,6 +74,8 @@ class _HomePageState extends State<HomePage> {
         return MapasPage();
       case 1:
         return DireccionesPage();
+      case 2:
+        return TextosPage();
       default:
         return MapasPage();
     }

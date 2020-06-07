@@ -4,7 +4,7 @@ import 'package:qr_reader_app/src/models/scan_model.dart';
 
 import 'package:qr_reader_app/src/utils/utils.dart' as utils;
 
-class MapasPage extends StatelessWidget {
+class TextosPage extends StatelessWidget {
 
   final scansBloc = new ScansBloc();
 
@@ -14,7 +14,7 @@ class MapasPage extends StatelessWidget {
     scansBloc.obtenerScans();
     
     return StreamBuilder(
-      stream: scansBloc.scansStreamGeo,
+      stream: scansBloc.scansStreamText,
       builder: (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot) {
         if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());

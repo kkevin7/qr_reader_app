@@ -18,4 +18,11 @@ class Validator{
     } ,
   );
 
+  final validarText = StreamTransformer<List<ScanModel>, List<ScanModel>>.fromHandlers(
+    handleData: (scans, sink){
+      final textScans = scans.where((s) => s.tipo == 'text').toList();
+      sink.add(textScans);
+    } ,
+  );
+
 }

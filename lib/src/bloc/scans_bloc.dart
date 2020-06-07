@@ -19,6 +19,7 @@ class ScansBloc with Validator{
 
   Stream<List<ScanModel>> get scansStreamGeo => _scansStreamController.stream.transform(validarGeo);
   Stream<List<ScanModel>> get scansStreamHttp => _scansStreamController.stream.transform(validarHttp);
+  Stream<List<ScanModel>> get scansStreamText => _scansStreamController.stream.transform(validarText);
 
   dispose(){
     _scansStreamController?.close();
