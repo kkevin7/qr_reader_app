@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:qr_reader_app/src/models/scan_model.dart';
 
-class MapaPage extends StatelessWidget {
+class MapaPage extends StatefulWidget {
+  @override
+  _MapaPageState createState() => _MapaPageState();
+}
+
+class _MapaPageState extends State<MapaPage> {
   MapController map = new MapController();
+  String tipoMapa = 'streets-v11';
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +35,7 @@ class MapaPage extends StatelessWidget {
         ],
       ),
       body: _crearFlutterMap(scan),
+      floatingActionButton: _crearBotonFlotante(context),
     );
   }
 
@@ -53,7 +60,7 @@ class MapaPage extends StatelessWidget {
       additionalOptions: {
         'accessToken':
             'pk.eyJ1Ijoia2tldmluNyIsImEiOiJja2I0NHdqdnQwZWlnMnFwaTMzZWphZWF0In0.6oaghAesMPQBZ5hFBqsy9g',
-        'id': 'mapbox/streets-v11',
+        'id': 'mapbox/$tipoMapa',
       },
     );
   }
@@ -72,5 +79,28 @@ class MapaPage extends StatelessWidget {
                 ),
               ))
     ]);
+  }
+
+  Widget _crearBotonFlotante(BuildContext context) {
+    return FloatingActionButton(
+      child: Icon(Icons.repeat),
+      backgroundColor: Theme.of(context).primaryColor,
+      onPressed: () {
+        if (tipoMapa == 'streets-v11') {
+          tipoMapa = 'outdoors-v11';
+        } else if (tipoMapa == 'outdoors-v11') {
+          tipoMapa = 'light-v10';
+        } else if (tipoMapa == 'light-v10') {
+          tipoMapa = 'dark-v10';
+        } else if (tipoMapa == 'dark-v10') {
+          tipoMapa = 'satellite-v9';
+        } else if (tipoMapa == 'satellite-v9') {
+          tipoMapa = 'satellite-streets-v11';
+        } else {
+          tipoMapa = 'streets-v11';
+        }
+        setState(() {});
+      },
+    );
   }
 }
